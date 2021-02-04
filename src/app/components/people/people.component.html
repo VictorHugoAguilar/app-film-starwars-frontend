@@ -1,0 +1,111 @@
+<div class="card">
+    <h2 class="card-header">{{titulo}}</h2>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <button class=" btn btn-primary my-2 " routerLink="/people/form">Crear Nuevo</button>
+            <div class="form-group ">
+                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar Personaje" (input)=filtrar($event.target.value)>
+            </div>
+        </div>
+        <div class="alert alert-info " *ngIf="lista?.length===0 ">
+            No hay Personajes en el sistema
+        </div>
+        <table class="table table-hover table-stiped " *ngIf="lista?.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Nacimiento</th>
+                    <th>Genero</th>
+                    <th>Peso</th>
+                    <th>Altura</th>
+                    <th>Color Ojos</th>
+                    <th>Color Cabello</th>
+                    <th>Color Piel</th>
+                    <th>Planeta</th>
+                    <th>Usuario</th>
+                    <th>Creado</th>
+                    <th>Editado</th>
+                    <th style="text-align: center;">Editar</th>
+                    <th style="text-align: center;">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: small;">
+                <tr *ngFor="let people of lista">
+                    <td>{{people.codigo }}</td>
+                    <td>{{people.name }}</td>
+                    <td *ngIf="people.birthYear === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="people.birthYear !== 'unknown'">
+                        {{people.birthYear }}
+                    </td>
+                    <td *ngIf="people.gender === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.gender !== 'unknown'">
+                        {{people.gender }}
+                    </td>
+                    <td *ngIf="people.mass === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.mass !== 'unknown'">
+                        {{people.mass }}
+                    </td>
+                    <td *ngIf="people.height === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.height !== 'unknown'">
+                        {{people.height }}
+                    </td>
+                    <td *ngIf="people.eyeColor === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.eyeColor !== 'unknown'">
+                        {{people.eyeColor }}
+                    </td>
+                    <td *ngIf="people.hairColor === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.hairColor !== 'unknown'">
+                        {{people.hairColor }}
+                    </td>
+                    <td *ngIf="people.skinColor === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">N/A</span>
+                    </td>
+                    <td *ngIf="people.skinColor !== 'unknown'">
+                        {{people.skinColor }}
+                    </td>
+                    <td *ngIf="people.planet">{{people.planet?.name }}
+                    </td>
+                    <td *ngIf="!people.planet">
+                        <button class="btn btn-primary btn-sm">Asignar</button>
+                    </td>
+                    <td *ngIf="people.usuario">{{people.usuario?.usuario }}
+                        <button class="btn btn-danger btn-sm" (click)="eliminarUsuarioPeople(people)">X</button>
+                    </td>
+                    <td *ngIf="!people.usuario">
+                        <button class="btn btn-primary btn-sm" (click)="asignarUsuarioPeople(people)">Asignar</button>
+                    </td>
+                    <td>{{people.created | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{people.edited | date: 'dd/MM/yyyy'}}</td>
+
+                    <td style="text-align: center;">
+                        <button class="btn btn-secondary btn-sm" [routerLink]="['/people/form', people.codigo]">
+                        <span class="material-icons">mode</span>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" (click)="eliminar(people)">
+                        <span class="material-icons">delete_outline</span>
+                      </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <mat-paginator [length]="totalRegistros" [pageIndex]="paginaActual" [pageSize]="totalPorPaginas" [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

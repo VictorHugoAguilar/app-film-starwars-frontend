@@ -1,0 +1,81 @@
+<div class="card">
+    <h5 class="card-header">{{titulo}}</h5>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2 " routerLink="/planet"> Volver</button>
+
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="hidden" id="codigo" name="codigo" [(ngModel)]="model.codigo">
+                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del Planeta" aria-describedby="helpId" [(ngModel)]="model.name">
+                <small id="helpId" class="text-muted">Ingrese el Nombre del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.name">{{error.name}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Población</label>
+                <input type="text" id="population" name="population" class="form-control" placeholder="Población del Planeta" aria-describedby="helpId" [(ngModel)]="model.population">
+                <small id="helpId" class="text-muted">Ingrese la Población del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.population">{{error.population}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Diámetro</label>
+                <input type="text" id="diameter" name="diameter" class="form-control" placeholder="Diámetro del Planeta" aria-describedby="helpId" [(ngModel)]="model.diameter">
+                <small id="helpId" class="text-muted">Ingrese el diámetro del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.diameter">{{error.diameter}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Período de Rotación</label>
+                <input type="text" id="rotationPeriod" name="rotationPeriod" class="form-control" placeholder="Período de Rotación del Planeta" aria-describedby="helpId" [(ngModel)]="model.rotationPeriod">
+                <small id="helpId" class="text-muted">Ingrese el Período de Rotación del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.rotationPeriod">{{error.rotationPeriod}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Período Orbital</label>
+                <input type="text" id="orbitalPeriod" name="orbitalPeriod" class="form-control" placeholder="Período Orbital del Planeta" aria-describedby="helpId" [(ngModel)]="model.orbitalPeriod">
+                <small id="helpId" class="text-muted">Ingrese el Período Orbital del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.orbitalPeriod">{{error.orbitalPeriod}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Gravedad</label>
+                <input type="text" id="gravity" name="gravity" class="form-control" placeholder="Gravedad del Planeta" aria-describedby="helpId" [(ngModel)]="model.gravity">
+                <small id="helpId" class="text-muted">Ingrese la Gravedad del Planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.gravity">{{error.gravity}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Clima</label>
+                <input type="text" id="climate" name="climate" class="form-control" placeholder="Clima del Planeta" aria-describedby="helpId" [(ngModel)]="model.climate">
+                <small id="helpId" class="text-muted">Ingrese el Clima del planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.climate">{{error.climate}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Terreno</label>
+                <input type="text" id="terrain" name="terrain" class="form-control" placeholder="Terreno del Planeta" aria-describedby="helpId" [(ngModel)]="model.terrain">
+                <small id="helpId" class="text-muted">Ingrese el Terreno del planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.terrain">{{error.terrain}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Superficie de Agua</label>
+                <input type="text" id="surfaceWater" name="surfaceWater" class="form-control" placeholder="Superficie de Agua del Planeta" aria-describedby="helpId" [(ngModel)]="model.surfaceWater">
+                <small id="helpId" class="text-muted">Ingrese la Superficie de Agua del planeta</small>
+                <div class="alert alert-danger" *ngIf=" error?.surfaceWater">{{error.surfaceWater}}</div>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="button" class="btn btn-primary" (click)="model.codigo? editar():crear()">
+          {{ model.codigo ? "Modificar" : "Crear Nuevo" }}
+        </button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

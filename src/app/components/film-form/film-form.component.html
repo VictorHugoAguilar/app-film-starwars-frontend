@@ -1,0 +1,107 @@
+<div class="card">
+    <h5 class="card-header">{{titulo}}</h5>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2 " routerLink="/film"> Volver</button>
+
+        <form>
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="hidden" id="codigo" name="codigo" [(ngModel)]="model.codigo">
+                <input type="text" id="title" name="title" class="form-control" placeholder="Ingrese el Título de la Película" aria-describedby="helpId" [(ngModel)]="model.title">
+                <small id="helpId" class="text-muted">Título de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.title">{{error.title}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="episodeId">Episodio</label>
+                <input type="number" id="episodeId" name="episodeId" class="form-control" placeholder="Ingrese el episodio de la Película" aria-describedby="helpId" [(ngModel)]="model.episodeId">
+                <small id="helpId" class="text-muted">Episodio de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.episodeId">{{error.episodeId}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="openingCrawl">Sinópsis</label>
+                <textarea   id="openingCrawl" name="openingCrawl" class="form-control" placeholder="Ingrese una sinópsis de la Película" aria-describedby="helpId" [(ngModel)]="model.openingCrawl"></textarea>
+                <small id="helpId" class="text-muted">Sinópsis de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.openingCrawl">{{error.openingCrawl}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Director/es</label>
+                <input type="text" id="director" name="director" class="form-control" placeholder="Ingrese el Director de la Película" aria-describedby="helpId" [(ngModel)]="model.director">
+                <small id="helpId" class="text-muted">Director de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.director">{{error.director}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="producer">Productor/es</label>
+                <input type="text" id="producer" name="producer" class="form-control" placeholder="Ingrese el Productor de la Película" aria-describedby="helpId" [(ngModel)]="model.producer">
+                <small id="helpId" class="text-muted">Productor de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.producer">{{error.producer}}</div>
+            </div>
+            <div class="form-group">
+                <label for="releaseDate">Fecha de lanzamiento</label>
+                <input type="date" id="releaseDate" name="releaseDate" class="form-control" placeholder="Ingrese la Fecha de Lanzamiento de la Película" aria-describedby="helpId" [(ngModel)]="model.releaseDate">
+                <small id="helpId" class="text-muted">Fecha de Lanzamiento de la Película</small>
+                <div class="alert alert-danger" *ngIf=" error?.releaseDate">{{error.releaseDate}}</div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-secondary my-4" (click)="agregarPlanet()">Agregar Planeta</button>
+                <div *ngFor="let planet of model.planets; let i = index">
+                    <div class="row mb-1">
+                        <div class="col-sm-1">
+                            <label class="font-weight-bold">Planet {{i+1}}:</label>
+                        </div>
+                        <div *ngIf="planet.name?.length > 0"  class="col-sm-2">
+                          <label>{{planet.name}}</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-select" aria-label="planet" name="planet" id="planet" (change)="asignarPlanet(planet, $event)">
+                              <option  [ngValue]="undefined" selected>{{ planet.name ? "cambiar planeta a ..." : "Seleccione un Planeta Disponible" }}</option>
+                              <option *ngFor="let planet of listaPlanet" value={{planet.codigo}} > {{ planet.name }}</option>
+                       </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-danger btn-sm" (click)="eliminarPlanet(planet)">X</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf=" error?.planets">{{error.planets}}</div>
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-secondary my-4" (click)="agregarPeople()">Agregar Personaje</button>
+                <div *ngFor="let people of model.peoples; let i = index">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <label  class="font-weight-bold">Personaje {{i+1}}:</label>
+                        </div>
+                        <div *ngIf="people.name?.length > 0"  class="col-sm-2">
+                          <label>{{people.name}}</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-select" aria-label="people" name="people" id="people" (change)="asignarPeople(people, $event)">
+                        <option  [ngValue]="undefined" selected>{{ people.name ? "cambiar personaje a ..." : "Seleccione un Personaje Disponible" }}</option>
+                        <option *ngFor="let people of listaPeople" value={{people.codigo}} > {{ people.name }}</option>
+                       </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-danger btn-sm" (click)="eliminarPeople(people)">X</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf=" error?.peoples">{{error.peoples}}</div>
+            </div>
+
+
+            <div class="form-group mt-4">
+                <button type="button" class="btn btn-primary" (click)="model.codigo? editar():crear()">
+                  {{ model.codigo ? "Modificar" : "Crear Nuevo" }}
+              </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="card">
+    <h2 class="card-header">{{titulo}}</h2>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/film/form">Crear Nuevo</button>
+        <div class="alert alert-info" *ngIf="lista?.length===0">
+            No hay Films en el sistema
+        </div>
+        <table class="table table-hover table-stiped" *ngIf="lista?.length>0">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Episodio</th>
+                    <th>Sinópsis</th>
+                    <th>Lanzamiento</th>
+                    <th>Director</th>
+                    <th>Productor</th>
+                    <th>Personajes</th>
+                    <th>Planetas</th>
+                    <th>Creado</th>
+                    <th>Editado</th>
+                    <th style="text-align: center;">Editar</th>
+                    <th style="text-align: center;">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let film of lista" style="font-size: small;">
+                    <td>{{film.codigo }}</td>
+                    <td>{{film.title }}</td>
+                    <td>{{film.episodeId }}</td>
+                    <td>
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        ver
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p style="font-size: small;"> {{film.openingCrawl }}</p>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                    <td>{{film.releaseDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{film.director }}</td>
+                    <td> {{film.producer }}</td>
+                    <td *ngIf="film.peoples.length == 0">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="film.peoples.length > 0">
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        ver
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div *ngFor="let people of film.peoples">
+                                    <span class="badge rounded-pill bg-primary">
+                                  {{people.name}}
+                                 </span>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                    <td *ngIf="film.planets.length == 0">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="film.planets.length > 0">
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        ver
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div *ngFor="let planet of film.planets">
+                                    <span class="badge rounded-pill bg-primary">
+                                  {{planet.name}}
+                                 </span>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                    <td>{{film.created | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{film.edited | date: 'dd/MM/yyyy'}}</td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-secondary btn-sm" [routerLink]="['/film/form', film.codigo]">
+                            <span class="material-icons">mode</span>
+                        </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" (click)="eliminar(film)">
+                          <span class="material-icons">delete_outline</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <mat-paginator [length]="totalRegistros" [pageIndex]="paginaActual" [pageSize]="totalPorPaginas" [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

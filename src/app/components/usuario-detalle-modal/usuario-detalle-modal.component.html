@@ -1,0 +1,76 @@
+<h3>{{titulo}} {{ usuarioDetalle?.usuario.usuario}}</h3>
+<div>
+    <span class="badge rounded-pill bg-secondary m-1" *ngFor="let mail of usuarioDetalle.usuario.mails">
+    {{mail.mail}}
+  </span>
+</div>
+<mat-dialog-content class="mat-typography">
+    <hr>
+    <h4>Personaje: {{usuarioDetalle.name}}</h4>
+    <div *ngIf="usuarioDetalle.films.length == 0" class="mt-2 alert alert-danger">No tiene films asociados</div>
+    <div class="m-1" *ngIf="usuarioDetalle.films">
+        <div class="card m-2" *ngFor="let film of usuarioDetalle.films">
+            <div class="card-body">
+                <h4 class="card-title">{{film.title}}</h4>
+                <p class="card-text" style="font-size: small;">{{film.openingCrawl}}</p>
+                <div class="row">
+                    <div class="col-sm-6 col-12 ">
+                        <p class="font-weight-bold">Episodio: <span class="font-weight-normal">{{film.episodeId}}</span> </p>
+                    </div>
+                    <div class="col-sm-6 col-12 ">
+                        <p class="font-weight-bold">Fecha Lanzamiento: <span class="font-weight-normal">{{film.releaseDate | date: 'dd/MM/yyyy'}}</span> </p>
+                    </div>
+                    <div class="col-sm-6 col-12 ">
+                        <p class="font-weight-bold">Director/es: <span class="font-weight-normal">{{film.director}}</span> </p>
+                    </div>
+                    <div class="col-sm-6 col-12 ">
+                        <p class="font-weight-bold">Productor/es: <span class="font-weight-normal">{{film.producer}}</span> </p>
+                    </div>
+                    <div class="col-sm-6 col-12 ">
+                        <div class="m-1">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Personajes
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div *ngFor="let people of film.peoples">
+                                        <span class="badge rounded-pill bg-primary">
+                              {{people.name}}
+                            </span>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="m-1">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Planetas
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div *ngFor="let planet of film.planets">
+                                        <span class="badge rounded-pill bg-primary">
+                                  {{planet.name}}
+                                 </span>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Editado: {{film.edited | date: 'dd/MM/yyyy' }} </small>
+                <br>
+                <small class="text-muted">Creado: {{film.created | date: 'dd/MM/yyyy' }} </small>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

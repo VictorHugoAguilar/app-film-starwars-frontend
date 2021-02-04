@@ -1,0 +1,99 @@
+<div class="card">
+    <h2 class="card-header">{{titulo}}</h2>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/planet/form">Crear Nuevo</button>
+        <div class="alert alert-info" *ngIf="lista?.length===0">
+            No hay Planetas en el sistema
+        </div>
+        <table class="table table-hover table-stiped" *ngIf="lista?.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Población</th>
+                    <th>Diametro</th>
+                    <th>Rotación</th>
+                    <th>Orbital</th>
+                    <th>Gravedad</th>
+                    <th>Clima</th>
+                    <th>Terreno</th>
+                    <th>Agua</th>
+                    <th>Creado</th>
+                    <th>Editado</th>
+                    <th style="text-align: center;">Editar</th>
+                    <th style="text-align: center;">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: small;">
+                <tr *ngFor="let planet of lista">
+                    <td>{{planet.codigo }}</td>
+                    <td>{{planet.name }}</td>
+                    <td *ngIf="planet.population === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.population !== 'unknown'">
+                        {{planet.population }}
+                    </td>
+                    <td *ngIf="planet.diameter  === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.diameter  !== 'unknown'">
+                        {{planet.diameter }}
+                    </td>
+                    <td *ngIf="planet.rotationPeriod === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.rotationPeriod !== 'unknown'">
+                        {{planet.rotationPeriod }}
+                    </td>
+                    <td *ngIf="planet.orbitalPeriod === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.orbitalPeriod !== 'unknown'">
+                        {{planet.orbitalPeriod }}
+                    </td>
+                    <td *ngIf="planet.gravity === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.gravity !== 'unknown'">
+                        {{planet.gravity }}
+                    </td>
+                    <td *ngIf="planet.climate === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.climate !== 'unknown'">
+                        {{planet.climate | lista }}
+                    </td>
+                    <td *ngIf="planet.terrain === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.terrain !== 'unknown'">
+                        {{planet.terrain }}
+                    </td>
+                    <td *ngIf="planet.surfaceWater === 'unknown'">
+                        <span class="badge rounded-pill bg-danger">n/a</span>
+                    </td>
+                    <td *ngIf="planet.surfaceWater !== 'unknown'">
+                        {{planet.surfaceWater }}
+                    </td>
+                    <td>{{planet.created | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{planet.edited | date: 'dd/MM/yyyy'}}</td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-secondary btn-sm" [routerLink]="['/planet/form', planet.codigo]">
+                          <span class="material-icons">mode</span>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" (click)="eliminar(planet)">
+                        <span class="material-icons">delete_outline</span>
+                      </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <mat-paginator [length]="totalRegistros" [pageIndex]="paginaActual" [pageSize]="totalPorPaginas" [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

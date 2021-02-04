@@ -1,0 +1,49 @@
+<div class="card">
+    <h5 class="card-header">{{titulo}}</h5>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2 " routerLink="/usuario"> Volver</button>
+
+        <form>
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                <input type="hidden" id="id" name="id" [(ngModel)]="model.id">
+                <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Nombre de Usuario" aria-describedby="helpId" [(ngModel)]="model.usuario">
+                <small id="helpId" class="text-muted">Ingrese el Nombre del Usuario</small>
+                <div class="alert alert-danger" *ngIf=" error?.usuario">{{error.usuario}}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" class="form-control" placeholder="Password de Usuario" aria-describedby="helpId" [(ngModel)]="model.password">
+                <small id="helpId" class="text-muted">Ingrese el Password del Usuario</small>
+                <div class="alert alert-danger" *ngIf=" error?.password">{{error.password}}</div>
+            </div>
+
+            <button class="btn btn-primary my-4" (click)="agregarMail()">Agregar Mail</button>
+
+            <div class="form-group" *ngFor="let mail of model.mails; let i = index">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label>Mail {{i+1}}:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" value="{{mail.mail}}" class="form-control my-2" (change)="asignarMail(mail, $event)">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-danger btn-sm" (click)="eliminarMail(mail)">X</button>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" *ngIf=" error?.mails">{{error.mails}}</div>
+
+            <div class="form-group mt-4">
+                <button type="button" class="btn btn-primary" (click)="model.id? editar():crear()">
+                    {{ model.id ? "Modificar" : "Crear Nuevo" }}
+                </button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
